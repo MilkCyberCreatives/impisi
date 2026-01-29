@@ -9,6 +9,7 @@ import {
   useSpring,
   useMotionTemplate,
 } from "framer-motion";
+import { div } from "framer-motion/m";
 
 const BRAND = "#031f3e";
 
@@ -48,6 +49,7 @@ export default function PlatformSection() {
     []
   );
 
+  // ✅ Correctly typed refs (no ts-expect-error needed)
   const sectionRef = useRef<HTMLElement | null>(null);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = useState(0);
@@ -77,9 +79,6 @@ export default function PlatformSection() {
 
   // Active observer
   useEffect(() => {
-    const root = sectionRef.current;
-    if (!root) return;
-
     const obs = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -89,7 +88,9 @@ export default function PlatformSection() {
           )[0];
 
         if (!visible) return;
-        const idx = Number((visible.target as HTMLElement).dataset.index || 0);
+        const idx = Number(
+          (visible.target as HTMLElement).dataset.index || 0
+        );
         setActive(idx);
       },
       {
@@ -105,12 +106,12 @@ export default function PlatformSection() {
 
   return (
     <section
-      ref={(n) => {
-        // @ts-expect-error
-        sectionRef.current = n;
+      ref={(node: HTMLElement | null) => {
+        sectionRef.current = node;
       }}
       className="relative w-full overflow-hidden bg-black"
     >
+      {/* Background aura */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -169,14 +170,13 @@ export default function PlatformSection() {
                 <div className="mt-5 h-px w-24 bg-white/40" />
               </div>
 
-              {/* ✅ Reduced spacing + reduced height to match your white line */}
+              {/* Image (set to your tuned height) */}
               <div
                 onMouseEnter={() => setHoverLeft(true)}
                 onMouseLeave={() => setHoverLeft(false)}
                 onMouseMove={onLeftMove}
                 className="mt-6 overflow-hidden rounded-3xl border border-white/12 bg-white/5 backdrop-blur-xl"
               >
-                {/* CHANGED HEIGHTS (smaller) */}
                 <div className="relative h-[360px] w-full sm:h-[400px] lg:h-[440px]">
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -191,10 +191,9 @@ export default function PlatformSection() {
                         src={items[active]?.img}
                         alt="Impisi Resources platform"
                         fill
-                        className="object-cover transition duration-700"
+                        className="object-cover"
                       />
 
-                      {/* Water glow */}
                       <motion.div
                         aria-hidden
                         className="absolute inset-0"
@@ -206,7 +205,6 @@ export default function PlatformSection() {
                         }}
                       />
 
-                      {/* Light sweep */}
                       <motion.div
                         aria-hidden
                         className="absolute inset-0"
@@ -228,7 +226,6 @@ export default function PlatformSection() {
                         }}
                       />
 
-                      {/* Cinematic overlays */}
                       <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/70" />
                       <div
                         className="absolute inset-0"
@@ -237,11 +234,8 @@ export default function PlatformSection() {
                         }}
                       />
 
-                      {/* Caption */}
                       <div className="absolute bottom-6 left-6 right-6">
-                        <div className="text-xs font-semibold tracking-[0.28em] text-white/70">
-                          PLATFORM IMAGE
-                        </div>
+                        
                         <div className="mt-2 text-lg font-semibold text-white">
                           {items[active]?.label}
                         </div>
