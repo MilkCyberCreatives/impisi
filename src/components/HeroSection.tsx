@@ -10,8 +10,6 @@ import {
   useSpring,
   useMotionTemplate,
 } from "framer-motion";
-import TopHeader from "@/components/TopHeader";
-import MainHeader from "@/components/MainHeader";
 
 const BRAND = "#031f3e";
 
@@ -104,8 +102,8 @@ export default function HeroSection() {
   }, [mx, my]);
 
   const tiles = useMemo(() => {
-    const rows = 4;
-    const cols = 7;
+    const rows = 5; // more tiles = more visible crack
+    const cols = 9;
     const items: { id: string; r: number; c: number }[] = [];
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) items.push({ id: `${r}-${c}`, r, c });
@@ -113,10 +111,10 @@ export default function HeroSection() {
     return { rows, cols, items };
   }, []);
 
-  // Faster + smoother timing
+  // ✅ Make crack visible (more time to see it)
   useEffect(() => {
-    const t0 = setTimeout(() => setExplode(true), 520);
-    const t1 = setTimeout(() => setRevealServices(true), 720);
+    const t0 = setTimeout(() => setExplode(true), 900);   // start crack
+    const t1 = setTimeout(() => setRevealServices(true), 1900); // reveal after crack is clearly seen
     return () => {
       clearTimeout(t0);
       clearTimeout(t1);
@@ -141,10 +139,10 @@ export default function HeroSection() {
       {/* Top blend overlay so header and hero feel like one */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 z-40 h-44"
+        className="pointer-events-none absolute inset-x-0 top-0 z-40 h-48"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0) 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.18) 60%, rgba(0,0,0,0) 100%)",
         }}
       />
 
@@ -153,10 +151,10 @@ export default function HeroSection() {
         className="absolute inset-0 -z-40"
         style={{ x: sx, y: sy }}
         animate={{
-          scale: explode ? 1.03 : 1.015,
+          scale: explode ? 1.04 : 1.015,
           opacity: revealServices ? 0.05 : 1,
         }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <Image
           src="/hero/hero-main.jpg"
@@ -166,6 +164,8 @@ export default function HeroSection() {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/35 to-black/62" />
+
+        {/* ✅ BRAND gradient is back */}
         <div
           className="absolute inset-0"
           style={{
@@ -174,16 +174,28 @@ export default function HeroSection() {
         />
       </motion.div>
 
-      {/* Crack tiles */}
+      {/* ✅ Crack tiles (now MUCH more visible) */}
       <div className="pointer-events-none absolute inset-0 -z-30">
         <AnimatePresence>
           {!revealServices && (
             <motion.div
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.14 }}
+              transition={{ duration: 0.25 }}
               className="absolute inset-0"
             >
+              {/* flash on crack start */}
+              <motion.div
+                className="absolute inset-0"
+                initial={{ opacity: 0 }}
+                animate={explode ? { opacity: [0, 0.18, 0] } : { opacity: 0 }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
+                style={{
+                  background:
+                    "radial-gradient(900px 520px at 50% 25%, rgba(255,255,255,0.22), transparent 60%)",
+                }}
+              />
+
               <div
                 className="grid h-full w-full"
                 style={{
@@ -202,31 +214,29 @@ export default function HeroSection() {
                       className="relative"
                       style={{
                         backgroundImage: `url(/hero/hero-main.jpg)`,
-                        backgroundSize: `${tiles.cols * 100}% ${
-                          tiles.rows * 100
-                        }%`,
-                        backgroundPosition: `${
-                          (t.c / (tiles.cols - 1)) * 100
-                        }% ${(t.r / (tiles.rows - 1)) * 100}%`,
+                        backgroundSize: `${tiles.cols * 100}% ${tiles.rows * 100}%`,
+                        backgroundPosition: `${(t.c / (tiles.cols - 1)) * 100}% ${(t.r / (tiles.rows - 1)) * 100}%`,
                         willChange: "transform, opacity, filter",
+                        // ✅ visible tile edges for “glass crack” look
+                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
                       }}
                       initial={{ opacity: 1, filter: "blur(0px)" }}
                       animate={
                         explode
                           ? {
                               opacity: 0,
-                              filter: "blur(8px)",
-                              x: x * (95 + dist * 85),
-                              y: y * (85 + dist * 78),
-                              rotate: x * 6,
-                              scale: 0.94,
+                              filter: "blur(10px)",
+                              x: x * (190 + dist * 160),
+                              y: y * (170 + dist * 140),
+                              rotate: x * 12,
+                              scale: 0.88,
                             }
                           : {}
                       }
                       transition={{
-                        duration: 0.42,
+                        duration: 0.85, // longer = visible
                         ease: [0.22, 1, 0.36, 1],
-                        delay: dist * 0.008,
+                        delay: dist * 0.02,
                       }}
                     />
                   );
@@ -246,7 +256,7 @@ export default function HeroSection() {
             ? { opacity: 1, y: 0, scale: 1 }
             : { opacity: 0, y: 18, scale: 1.01 }
         }
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
         <div
           className="relative h-screen w-full"
@@ -296,12 +306,15 @@ export default function HeroSection() {
                   </motion.div>
 
                   <div className="absolute inset-0 bg-black/26" />
+
+                  {/* ✅ BRAND gradient back here too */}
                   <div
                     className="absolute inset-0"
                     style={{
                       background: `linear-gradient(to top, ${BRAND} 0%, rgba(3,31,62,0.92) 32%, rgba(3,31,62,0.30) 70%, rgba(3,31,62,0) 90%)`,
                     }}
                   />
+
                   <div className="absolute inset-y-0 right-0 w-px bg-white/10" />
 
                   <div className="absolute bottom-8 left-6 right-6 z-20">
@@ -337,12 +350,6 @@ export default function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Headers */}
-      <div className="absolute inset-x-0 top-0 z-50">
-        <TopHeader />
-        <MainHeader />
-      </div>
-
       {/* Hero copy */}
       <div className="pointer-events-none relative z-40 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 pb-10 pt-36 text-center sm:px-6 lg:px-8 lg:pt-40">
         <motion.h1
@@ -366,14 +373,14 @@ export default function HeroSection() {
 
         <div className="pointer-events-auto mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#031f3e] transition hover:scale-[1.02] active:scale-[0.98] shadow-[0_18px_60px_rgba(0,0,0,.45)]"
           >
             Connect
           </Link>
 
           <Link
-            href="#about"
+            href="/about"
             className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white/90 backdrop-blur transition hover:border-white/30 hover:bg-white/18"
           >
             Explore profile

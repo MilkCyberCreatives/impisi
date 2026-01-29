@@ -8,15 +8,13 @@ import FooterSection from "@/components/FooterSection";
 
 export default function Home() {
   return (
-    <main>
+    <main className="-mt-[116px] sm:-mt-[124px]">
       <HeroSection />
       <AboutBentoSection />
       <ShowcaseSplitSection />
       <PlatformSection />
       <ApproachSection />
       <GovernanceSection />
-
-      {/* Footer + scroll-to-top */}
       <FooterSection />
     </main>
   );
