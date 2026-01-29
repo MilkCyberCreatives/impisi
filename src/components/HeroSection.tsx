@@ -74,7 +74,7 @@ export default function HeroSection() {
   const csx = useSpring(cx, { stiffness: 220, damping: 30, mass: 0.6 });
   const csy = useSpring(cy, { stiffness: 220, damping: 30, mass: 0.6 });
 
-  // Water glow background (motion template = smooth)
+  // Water glow background
   const waterBg = useMotionTemplate`
     radial-gradient(360px 240px at ${csx}% ${csy}%,
       rgba(255,255,255,0.22),
@@ -105,7 +105,7 @@ export default function HeroSection() {
 
   const tiles = useMemo(() => {
     const rows = 4;
-    const cols = 7; // keep light
+    const cols = 7;
     const items: { id: string; r: number; c: number }[] = [];
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) items.push({ id: `${r}-${c}`, r, c });
@@ -134,12 +134,11 @@ export default function HeroSection() {
   return (
     <section
       ref={(node) => {
-        // @ts-expect-error
-        containerRef.current = node;
+        if (node) containerRef.current = node;
       }}
       className="relative min-h-screen w-full overflow-hidden"
     >
-      {/* Top blend so header and hero feel like one */}
+      {/* Top blend overlay so header and hero feel like one */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 z-40 h-44"
@@ -203,8 +202,12 @@ export default function HeroSection() {
                       className="relative"
                       style={{
                         backgroundImage: `url(/hero/hero-main.jpg)`,
-                        backgroundSize: `${tiles.cols * 100}% ${tiles.rows * 100}%`,
-                        backgroundPosition: `${(t.c / (tiles.cols - 1)) * 100}% ${(t.r / (tiles.rows - 1)) * 100}%`,
+                        backgroundSize: `${tiles.cols * 100}% ${
+                          tiles.rows * 100
+                        }%`,
+                        backgroundPosition: `${
+                          (t.c / (tiles.cols - 1)) * 100
+                        }% ${(t.r / (tiles.rows - 1)) * 100}%`,
                         willChange: "transform, opacity, filter",
                       }}
                       initial={{ opacity: 1, filter: "blur(0px)" }}
@@ -234,7 +237,7 @@ export default function HeroSection() {
         </AnimatePresence>
       </div>
 
-      {/* Services layer (smooth reveal) */}
+      {/* Services layer */}
       <motion.div
         className="absolute inset-0 z-30"
         initial={{ opacity: 0, y: 18, scale: 1.01 }}
@@ -254,23 +257,17 @@ export default function HeroSection() {
           }}
           onMouseMove={onServiceMove}
         >
-          {/* Strong visible water effect */}
-          <AnimatePresence>
-            {inServiceZone && (
-              <motion.div
-                key="water"
-                className="pointer-events-none absolute inset-0"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.18 }}
-                style={{
-                  background: waterBg,
-                  mixBlendMode: "overlay",
-                }}
-              />
-            )}
-          </AnimatePresence>
+          {/* Water effect */}
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              opacity: inServiceZone ? 1 : 0,
+              background: waterBg,
+              mixBlendMode: "overlay",
+              transition: "opacity 180ms ease",
+            }}
+          />
 
           <div className="grid h-screen w-full grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((s, idx) => {
@@ -307,7 +304,6 @@ export default function HeroSection() {
                   />
                   <div className="absolute inset-y-0 right-0 w-px bg-white/10" />
 
-                  {/* bottom label */}
                   <div className="absolute bottom-8 left-6 right-6 z-20">
                     <div className="text-[18px] font-semibold tracking-tight text-white sm:text-[20px] lg:text-[22px]">
                       {s.title}
@@ -315,7 +311,6 @@ export default function HeroSection() {
                     <div className="mt-1 text-xs text-white/80">{s.subtitle}</div>
                   </div>
 
-                  {/* hover writing only (no card) */}
                   <AnimatePresence>
                     {isActive && (
                       <motion.div
