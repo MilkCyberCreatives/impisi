@@ -10,7 +10,6 @@ export default function AboutPage() {
       <BreadcrumbHero
         title="About Impisi Resources"
         subtitle="An integrated mining, beneficiation and commodity solutions platform focused on disciplined execution, quality consistency and dependable delivery."
-        bgImage="/platform.jpg"
         crumbs={[
           { label: "Home", href: "/" },
           { label: "About" },
