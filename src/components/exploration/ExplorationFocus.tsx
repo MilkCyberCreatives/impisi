@@ -6,8 +6,8 @@ import { Layers, Map, Timer, Route } from "lucide-react";
 const focus = [
   { title: "Brownfield and near-mine extensions", icon: Map },
   { title: "Shallow, laterally continuous ore bodies", icon: Layers },
-  { title: "Infrastructure-compatible deposits", icon: Route },
-  { title: "Rapid transition into production", icon: Timer },
+  { title: "Deposits compatible with existing or planned processing infrastructure", icon: Route },
+  { title: "Rapid transition from exploration to cash-generating operations", icon: Timer },
 ];
 
 export default function ExplorationFocus() {
@@ -23,8 +23,9 @@ export default function ExplorationFocus() {
           <div className="text-xs font-semibold tracking-[0.28em] text-white/65">
             EXPLORATION FOCUS
           </div>
+
           <h3 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
-            Structured for commercial viability.
+            Exploration Focus
           </h3>
 
           <div className="mt-8 h-px w-full bg-white/10" />
@@ -42,9 +43,11 @@ export default function ExplorationFocus() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/6">
                     <Icon size={20} className="text-white/85" />
                   </div>
-                  <div className="mt-4 text-sm font-semibold text-white/85 group-hover:text-white transition">
+
+                  <div className="mt-4 text-sm font-semibold text-white/85 transition group-hover:text-white">
                     {f.title}
                   </div>
+
                   <div className="mt-6 h-px w-full bg-gradient-to-r from-white/20 via-white/8 to-transparent" />
                 </motion.div>
               );

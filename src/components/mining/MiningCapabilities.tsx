@@ -27,7 +27,7 @@ export default function MiningCapabilities() {
           </div>
 
           <h3 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
-            Built for stable production and consistent feed quality.
+            Operational Capabilities
           </h3>
 
           <div className="mt-8 h-px w-full bg-white/10" />
@@ -46,7 +46,7 @@ export default function MiningCapabilities() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/6">
                       <Icon size={20} className="text-white/85" />
                     </div>
-                    <div className="text-sm font-semibold text-white/85 group-hover:text-white transition">
+                    <div className="text-sm font-semibold text-white/85 transition group-hover:text-white">
                       {c.title}
                     </div>
                   </div>
@@ -56,6 +56,11 @@ export default function MiningCapabilities() {
               );
             })}
           </div>
+
+          <p className="mt-10 max-w-4xl text-sm leading-relaxed text-white/75 sm:text-base">
+            Mining plans are designed to align directly with beneficiation requirements, ensuring consistent
+            feed quality, yield optimisation, and operational stability.
+          </p>
 
           <div className="mt-14 h-px w-full bg-white/10" />
         </motion.div>

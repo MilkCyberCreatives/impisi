@@ -2,14 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
-import {
-  Pickaxe,
-  Map,
-  Factory,
-  Ship,
-  Building2,
-  ShieldCheck,
-} from "lucide-react";
+import { Pickaxe, Map, Factory, Ship, Building2, ShieldCheck } from "lucide-react";
 
 const BRAND = "#031f3e";
 
@@ -122,10 +115,7 @@ export default function AboutBentoSection() {
   );
 
   return (
-    <section
-      id="about"
-      className="relative w-full overflow-hidden bg-black py-20 sm:py-24"
-    >
+    <section id="about" className="relative w-full overflow-hidden bg-black py-20 sm:py-24">
       {/* premium background (matches hero) */}
       <div
         aria-hidden
@@ -205,19 +195,30 @@ export default function AboutBentoSection() {
             className="mx-auto max-w-4xl text-center"
           >
             <div className="text-xs font-semibold tracking-[0.28em] text-white/65">
-              ABOUT IMPISI RESOURCES
+              CORPORATE OVERVIEW
             </div>
 
             <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Integrated capabilities across
-              <br className="hidden sm:block" />
-              the mining value chain.
+              Corporate Overview
             </h2>
 
             <p className="mx-auto mt-5 max-w-3xl text-pretty text-sm leading-relaxed text-white/75 sm:text-base">
-              We operate across mining operations, exploration, beneficiation, and
-              commodity trading — enabling tighter control, specification
-              consistency, and disciplined execution.
+              Impisi Resources is a South African-based, vertically integrated mining, mineral processing, and
+              commodities group, focused on the development, operation, and optimisation of mining assets across
+              the bulk and industrial minerals sector.
+            </p>
+
+            <p className="mx-auto mt-4 max-w-3xl text-pretty text-sm leading-relaxed text-white/75 sm:text-base">
+              The company has established itself as a hands-on operator with strong technical, commercial, and
+              regulatory capability, specialising in the extraction, beneficiation, and trading of chrome ore,
+              with expansion into additional commodities where processing synergies and market fundamentals support
+              value creation.
+            </p>
+
+            <p className="mx-auto mt-4 max-w-3xl text-pretty text-sm leading-relaxed text-white/75 sm:text-base">
+              Impisi Resources operates across the full mining value chain — from exploration and ore access
+              through to processing, logistics, and market delivery — enabling tight operational control, margin
+              optimisation, and long-term sustainability.
             </p>
 
             <div className="mx-auto mt-10 h-px w-44 bg-white/12" />
@@ -267,12 +268,8 @@ export default function AboutBentoSection() {
                     </div>
 
                     <div className="min-w-0">
-                      <div className="text-base font-semibold text-white">
-                        {it.title}
-                      </div>
-                      <div className="mt-2 text-sm leading-relaxed text-white/70">
-                        {it.desc}
-                      </div>
+                      <div className="text-base font-semibold text-white">{it.title}</div>
+                      <div className="mt-2 text-sm leading-relaxed text-white/70">{it.desc}</div>
 
                       <div className="mt-5 h-px w-full bg-gradient-to-r from-white/20 via-white/8 to-transparent" />
                     </div>

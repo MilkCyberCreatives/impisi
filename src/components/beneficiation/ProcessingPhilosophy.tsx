@@ -24,8 +24,9 @@ export default function ProcessingPhilosophy() {
           <div className="text-xs font-semibold tracking-[0.28em] text-white/65">
             PROCESSING PHILOSOPHY
           </div>
+
           <h3 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
-            Designed to maximise recovery and improve concentrate quality.
+            Processing Philosophy
           </h3>
 
           <div className="mt-8 h-px w-full bg-white/10" />
@@ -43,13 +44,18 @@ export default function ProcessingPhilosophy() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/6">
                     <Icon size={20} className="text-white/85" />
                   </div>
-                  <div className="mt-4 text-sm font-semibold text-white/85 group-hover:text-white transition">
+                  <div className="mt-4 text-sm font-semibold text-white/85 transition group-hover:text-white">
                     {c.title}
                   </div>
                 </motion.div>
               );
             })}
           </div>
+
+          <p className="mt-10 max-w-5xl text-sm leading-relaxed text-white/75 sm:text-base">
+            Beneficiation is structured to maximise recovery, improve concentrate quality, and increase project
+            margins, while reducing waste and environmental impact.
+          </p>
 
           <div className="mt-12 h-px w-full bg-white/10" />
         </motion.div>

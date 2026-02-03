@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FileSignature, Wallet, BarChart3, CheckCircle2, Ship, BadgeCheck } from "lucide-react";
+import { FileSignature, Wallet, BarChart3, BadgeCheck, Ship } from "lucide-react";
 
 const items = [
   { title: "Long-term and spot offtake agreements", icon: FileSignature },
@@ -9,7 +9,6 @@ const items = [
   { title: "Pricing and market optimisation", icon: BarChart3 },
   { title: "Quality assurance and specification management", icon: BadgeCheck },
   { title: "Logistics coordination and export facilitation", icon: Ship },
-  { title: "Reliable product delivery", icon: CheckCircle2 },
 ];
 
 export default function TradingCapabilities() {
@@ -25,8 +24,9 @@ export default function TradingCapabilities() {
           <div className="text-xs font-semibold tracking-[0.28em] text-white/65">
             COMMERCIAL CAPABILITIES
           </div>
+
           <h3 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
-            Structured trading capability supporting predictable delivery.
+            Commercial Capabilities
           </h3>
 
           <div className="mt-8 h-px w-full bg-white/10" />
@@ -44,7 +44,7 @@ export default function TradingCapabilities() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/6">
                     <Icon size={20} className="text-white/85" />
                   </div>
-                  <div className="mt-4 text-sm font-semibold text-white/85 group-hover:text-white transition">
+                  <div className="mt-4 text-sm font-semibold text-white/85 transition group-hover:text-white">
                     {c.title}
                   </div>
                   <div className="mt-6 h-px w-full bg-gradient-to-r from-white/20 via-white/8 to-transparent" />
@@ -52,6 +52,10 @@ export default function TradingCapabilities() {
               );
             })}
           </div>
+
+          <p className="mt-10 max-w-4xl text-sm leading-relaxed text-white/75 sm:text-base">
+            Trading capability enhances project bankability and supports predictable revenue streams.
+          </p>
 
           <div className="mt-14 h-px w-full bg-white/10" />
         </motion.div>

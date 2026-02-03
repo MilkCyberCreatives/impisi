@@ -27,28 +27,28 @@ const SERVICES: Service[] = [
     subtitle: "Development, management & optimisation",
     desc: "Hands-on mining execution aligned to beneficiation, blending, and consistent feed quality.",
     img: "/hero/service-mining.jpg",
-    href: "#mining",
+    href: "/mining",
   },
   {
     title: "Exploration",
     subtitle: "Resource growth & sustainability",
     desc: "Commercially focused exploration designed to fast-track viable resources into production.",
     img: "/hero/service-logistics.jpg",
-    href: "#exploration",
+    href: "/exploration",
   },
   {
     title: "Beneficiation",
     subtitle: "Wolfmountain wash plant capability",
     desc: "Chrome ore washing and processing designed for recovery, quality control, and operational flexibility.",
     img: "/hero/service-beneficiation.jpg",
-    href: "#beneficiation",
+    href: "/beneficiation",
   },
   {
     title: "Commodity Trading",
     subtitle: "Mine-to-market sales & off-take",
     desc: "Offtake solutions and market delivery with quality assurance and logistics coordination.",
     img: "/hero/service-trading.jpg",
-    href: "#trading",
+    href: "/trading",
   },
 ];
 
@@ -85,9 +85,17 @@ export default function HeroSection() {
     )
   `;
 
+  // ✅ improve speed: avoid mousemove listener on touch devices
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
+
+    const isCoarse =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(pointer: coarse)").matches;
+
+    if (isCoarse) return;
 
     const onMove = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect();
@@ -113,7 +121,7 @@ export default function HeroSection() {
 
   // ✅ Make crack visible (more time to see it)
   useEffect(() => {
-    const t0 = setTimeout(() => setExplode(true), 900);   // start crack
+    const t0 = setTimeout(() => setExplode(true), 900); // start crack
     const t1 = setTimeout(() => setRevealServices(true), 1900); // reveal after crack is clearly seen
     return () => {
       clearTimeout(t0);
@@ -161,6 +169,7 @@ export default function HeroSection() {
           alt="Impisi Resources hero"
           fill
           priority
+          sizes="100vw"
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/35 to-black/62" />
@@ -279,7 +288,8 @@ export default function HeroSection() {
             }}
           />
 
-          <div className="grid h-screen w-full grid-cols-2 lg:grid-cols-4">
+          {/* ✅ desktop/tablet: 4 images. ✅ mobile: 1 image (clean) */}
+          <div className="hidden h-screen w-full lg:grid lg:grid-cols-4">
             {SERVICES.map((s, idx) => {
               const isActive = active === idx;
               const dim = active !== null && !isActive;
@@ -302,7 +312,7 @@ export default function HeroSection() {
                     }}
                     transition={{ duration: 0.28, ease: "easeOut" }}
                   >
-                    <Image src={s.img} alt={s.title} fill className="object-cover" />
+                    <Image src={s.img} alt={s.title} fill sizes="25vw" className="object-cover" />
                   </motion.div>
 
                   <div className="absolute inset-0 bg-black/26" />
@@ -333,9 +343,7 @@ export default function HeroSection() {
                         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute bottom-24 left-6 right-6 z-30"
                       >
-                        <div className="text-xs leading-relaxed text-white/92">
-                          {s.desc}
-                        </div>
+                        <div className="text-xs leading-relaxed text-white/92">{s.desc}</div>
                         <div className="mt-4 h-px w-24 bg-white/70" />
                         <div className="mt-3 text-xs font-semibold text-white">
                           Open section →
@@ -346,6 +354,27 @@ export default function HeroSection() {
                 </Link>
               );
             })}
+          </div>
+
+          {/* Mobile / tablet (single image) */}
+          <div className="relative h-screen w-full lg:hidden">
+            <Link href="/mining" className="absolute inset-0 block">
+              <Image
+                src="/hero/hero-main.jpg"
+                alt="Impisi Resources hero"
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority={false}
+              />
+              <div className="absolute inset-0 bg-black/28" />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `linear-gradient(to top, ${BRAND} 0%, rgba(3,31,62,0.92) 32%, rgba(3,31,62,0.30) 70%, rgba(3,31,62,0) 90%)`,
+                }}
+              />
+            </Link>
           </div>
         </div>
       </motion.div>
@@ -358,7 +387,7 @@ export default function HeroSection() {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto mt-4 max-w-5xl text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl"
         >
-          Traditional values with innovative commodity solutions.
+          Integrated Mining, Beneficiation &amp; Commodity Solutions
         </motion.h1>
 
         <motion.p

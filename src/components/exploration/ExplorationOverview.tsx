@@ -31,59 +31,63 @@ export default function ExplorationOverview() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#020814] py-16 sm:py-20">
+    <section className="relative w-full overflow-hidden bg-[#020814] py-14 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 16, filter: "blur(10px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-120px" }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          className="grid gap-6 lg:grid-cols-12"
+          className="grid gap-8 lg:grid-cols-12 lg:items-center"
         >
+          {/* Text */}
           <div className="lg:col-span-7">
             <div className="text-xs font-semibold tracking-[0.28em] text-white/65">
               EXPLORATION & RESOURCE DEVELOPMENT
             </div>
 
             <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Commercially focused exploration supporting long-term growth.
+              EXPLORATION & RESOURCE DEVELOPMENT
             </h2>
 
             <p className="mt-5 text-sm leading-relaxed text-white/75 sm:text-base">
-              Exploration underpins long-term growth and reserve sustainability. Impisi Resources adopts
-              a commercially focused, risk-managed exploration strategy aimed at fast-tracking viable
+              Exploration underpins Impisi Resources’ long-term growth and reserve sustainability. The company
+              adopts a commercially focused, risk-managed exploration strategy aimed at fast-tracking viable
               resources into production.
             </p>
-
-            <div className="mt-8 h-px w-full bg-white/10" />
-            <div className="mt-6 text-sm text-white/75">
-              Focus areas include brownfield and near-mine extensions, shallow laterally continuous ore bodies,
-              and deposits compatible with existing or planned processing infrastructure.
-            </div>
           </div>
 
+          {/* Image */}
           <motion.div
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             onMouseMove={onMove}
             whileHover={{ y: -4 }}
             transition={{ type: "spring", stiffness: 220, damping: 20 }}
-            className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl lg:col-span-5"
+            className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl lg:col-span-5"
           >
-            <div className="relative h-[320px] w-full sm:h-[360px]">
+            <motion.div
+              className="relative h-[320px] w-full sm:h-[360px]"
+              animate={{ scale: [1, 1.03, 1] }}
+              transition={{ duration: 9, ease: "easeInOut", repeat: Infinity }}
+            >
               <Image
                 src="/hero/service-logistics.jpg"
                 alt="Exploration and resource development"
                 fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/70" />
+
+              {/* Fade overlays */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/75" />
               <div
                 className="absolute inset-0"
                 style={{
                   background: `linear-gradient(to top, ${BRAND} 0%, rgba(3,31,62,0.78) 30%, rgba(3,31,62,0.18) 62%, rgba(3,31,62,0) 86%)`,
                 }}
               />
+
               <motion.div
                 aria-hidden
                 className="pointer-events-none absolute inset-0"
@@ -94,6 +98,8 @@ export default function ExplorationOverview() {
                   transition: "opacity 180ms ease",
                 }}
               />
+
+              {/* Caption */}
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="text-xs font-semibold tracking-[0.28em] text-white/70">
                   FAST-TRACK TO PRODUCTION
@@ -102,10 +108,11 @@ export default function ExplorationOverview() {
                   Risk-managed exploration strategy
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
 
+        {/* ✅ Divider at end of section (restored) */}
         <div className="mt-14 h-px w-full bg-white/10" />
       </div>
     </section>

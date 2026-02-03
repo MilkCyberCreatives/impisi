@@ -10,10 +10,7 @@ export default function ExplorationPage() {
       <BreadcrumbHero
         title="Exploration"
         subtitle="A commercially focused, risk-managed exploration strategy aimed at fast-tracking viable resources into production."
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: "Exploration" },
-        ]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Exploration" }]}
       />
 
       <ExplorationOverview />

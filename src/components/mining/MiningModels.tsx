@@ -34,9 +34,7 @@ export default function MiningModels() {
     {
       title: "Owner-Operated Mining",
       icon: Factory,
-      lines: [
-        "Direct operational control where Impisi holds exclusive mining or mining-linked rights.",
-      ],
+      lines: ["Direct operational control where Impisi holds exclusive mining or mining-linked rights."],
     },
     {
       title: "Contract Mining & Joint Ventures",
@@ -69,12 +67,15 @@ export default function MiningModels() {
           <div className="text-xs font-semibold tracking-[0.28em] text-white/65">
             MINING MODELS
           </div>
+
           <h3 className="mt-5 text-2xl font-semibold text-white sm:text-3xl">
-            Flexible commercial and operating structures.
+            Mining Models
           </h3>
+
           <p className="mt-4 text-sm leading-relaxed text-white/75 sm:text-base">
-            The company is structured to operate under multiple mining and commercial models.
+            The company is structured to operate under multiple mining and commercial models, including:
           </p>
+
           <div className="mt-8 h-px w-full bg-white/10" />
         </motion.div>
 
@@ -115,9 +116,9 @@ export default function MiningModels() {
                   />
 
                   <div className="relative">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-4">
                       <div className="text-lg font-semibold text-white">{c.title}</div>
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/6">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/12 bg-white/6">
                         <Icon size={20} className="text-white/85" />
                       </div>
                     </div>

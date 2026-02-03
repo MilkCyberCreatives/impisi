@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
+import NextTopLoader from "nextjs-toploader";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Impisi Resources";
@@ -22,7 +23,12 @@ export const metadata: Metadata = {
     description:
       "Integrated mining operations, exploration, beneficiation, commodity trading, and project development.",
     images: [
-      { url: "/og.jpg", width: 1200, height: 630, alt: `${siteName} - Mining & Beneficiation` },
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${siteName} - Mining & Beneficiation`,
+      },
     ],
   },
   twitter: {
@@ -39,7 +45,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        {/* Premium loading indicator (makes navigation feel instant) */}
+        <NextTopLoader
+          showSpinner={false}
+          height={2}
+          easing="ease"
+          speed={220}
+        />
+
         <SiteHeader />
+
+        {/* Space for fixed header */}
         <div className="pt-[116px] sm:pt-[124px]">{children}</div>
       </body>
     </html>

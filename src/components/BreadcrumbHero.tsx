@@ -2,12 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useMotionTemplate,
-} from "framer-motion";
+import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import { useState } from "react";
 
 const DEFAULT_BREADCRUMB_IMAGE = "/images/breadcrumbs/master.jpg";
@@ -28,7 +23,6 @@ export default function BreadcrumbHero({
   const csx = useSpring(cx, { stiffness: 320, damping: 34, mass: 0.55 });
   const csy = useSpring(cy, { stiffness: 320, damping: 34, mass: 0.55 });
 
-  // Water effect (noticeable but neutral, no blue tint)
   const water = useMotionTemplate`
     radial-gradient(760px 520px at ${csx}% ${csy}%,
       rgba(255,255,255,0.16),
@@ -54,7 +48,6 @@ export default function BreadcrumbHero({
         ];
 
   return (
-    // ✅ Pull breadcrumb hero up behind the fixed header to remove the top gap
     <section className="relative -mt-[116px] sm:-mt-[124px] w-full overflow-hidden bg-black">
       <div
         className="relative w-full min-h-[34vh] sm:min-h-[38vh] lg:min-h-[40vh]"
@@ -70,7 +63,7 @@ export default function BreadcrumbHero({
           className="object-cover object-[50%_35%]"
         />
 
-        {/* ✅ Overlay NOT too dark (clean + premium) */}
+        {/* Overlays */}
         <div className="absolute inset-0 bg-black/45" />
         <div
           className="absolute inset-0"
@@ -92,9 +85,9 @@ export default function BreadcrumbHero({
           }}
         />
 
-        {/* ✅ Content padded down to clear fixed header (so text never hides) */}
-        <div className="relative mx-auto max-w-7xl px-4 pb-12 pt-[160px] sm:px-6 sm:pb-14 sm:pt-[170px] lg:px-8 lg:pb-16 lg:pt-[180px]">
-          {/* Breadcrumb */}
+        {/* Content */}
+        <div className="relative mx-auto max-w-7xl px-4 pb-12 pt-[190px] sm:px-6 sm:pb-14 sm:pt-[205px] lg:px-8 lg:pb-16 lg:pt-[220px]">
+          {/* Breadcrumb (NO SHAPE) */}
           <motion.nav
             initial={{ opacity: 0, y: 8, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -128,7 +121,7 @@ export default function BreadcrumbHero({
               ease: [0.22, 1, 0.36, 1],
               delay: 0.05,
             }}
-            className="mt-5 max-w-4xl text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl"
+            className="mt-6 max-w-4xl text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl"
           >
             {title}
           </motion.h1>
