@@ -132,7 +132,7 @@ export default function ContactSection() {
               </div>
               <div className="flex items-start gap-3">
                 <Mail size={16} className="mt-[2px] text-white/85" />
-                <div>info@impisiresources.co.za</div>
+                <div>info@impisiresources.com</div>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin size={16} className="mt-[2px] text-white/85" />
