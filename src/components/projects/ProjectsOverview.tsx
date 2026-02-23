@@ -74,6 +74,7 @@ export default function ProjectsOverview() {
                 src="/deliver.jpg"
                 alt="Project development"
                 fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/70" />

@@ -1,16 +1,36 @@
 import type { MetadataRoute } from "next";
+import { SERVICES } from "@/data/services";
+import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const now = new Date();
 
-  // Add more pages here as you build them
-  const routes = ["", "/#about", "/#mining", "/#exploration", "/#beneficiation", "/#trading", "/#projects", "/#contact"];
+  const staticRoutes: Array<{
+    path: string;
+    changeFrequency: "daily" | "weekly" | "monthly";
+    priority: number;
+  }> = [
+    { path: "/", changeFrequency: "daily", priority: 1 },
+    { path: "/about", changeFrequency: "monthly", priority: 0.85 },
+    { path: "/services", changeFrequency: "weekly", priority: 0.9 },
+    { path: "/mining", changeFrequency: "weekly", priority: 0.85 },
+    { path: "/exploration", changeFrequency: "weekly", priority: 0.85 },
+    { path: "/beneficiation", changeFrequency: "weekly", priority: 0.85 },
+    { path: "/trading", changeFrequency: "weekly", priority: 0.85 },
+    { path: "/projects", changeFrequency: "weekly", priority: 0.85 },
+    { path: "/contact", changeFrequency: "monthly", priority: 0.8 },
+  ];
 
-  return routes.map((path) => ({
-    url: `${siteUrl}${path}`,
+  const serviceRoutes = SERVICES.map((service) => ({
+    path: `/services/${service.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes].map((route) => ({
+    url: absoluteUrl(route.path),
     lastModified: now,
-    changeFrequency: "weekly",
-    priority: path === "" ? 1 : 0.7,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
   }));
 }

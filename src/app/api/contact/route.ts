@@ -11,6 +11,19 @@ type Payload = {
   website?: string; // honeypot (anti-spam)
 };
 
+const NO_INDEX_HEADERS = {
+  "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+};
+
+function jsonNoIndex(payload: unknown, init: ResponseInit = {}) {
+  const headers = new Headers(init?.headers);
+  Object.entries(NO_INDEX_HEADERS).forEach(([key, value]) => {
+    headers.set(key, value);
+  });
+
+  return NextResponse.json(payload, { ...init, headers });
+}
+
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -21,7 +34,7 @@ export async function POST(req: Request) {
 
     // Basic honeypot (bots fill hidden fields)
     if (body.website && body.website.trim().length > 0) {
-      return NextResponse.json({ ok: true }); // pretend success
+      return jsonNoIndex({ ok: true }); // pretend success
     }
 
     const name = (body.name || "").trim();
@@ -32,14 +45,14 @@ export async function POST(req: Request) {
     const phone = (body.phone || "").trim();
 
     if (!name || !email || !subject || !message) {
-      return NextResponse.json(
+      return jsonNoIndex(
         { ok: false, error: "Missing required fields." },
         { status: 400 }
       );
     }
 
     if (!isValidEmail(email)) {
-      return NextResponse.json(
+      return jsonNoIndex(
         { ok: false, error: "Invalid email address." },
         { status: 400 }
       );
@@ -56,7 +69,7 @@ export async function POST(req: Request) {
     } = process.env;
 
     if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !SMTP_FROM) {
-      return NextResponse.json(
+      return jsonNoIndex(
         {
           ok: false,
           error:
@@ -97,10 +110,10 @@ export async function POST(req: Request) {
       html,
     });
 
-    return NextResponse.json({ ok: true });
+    return jsonNoIndex({ ok: true });
   } catch (err) {
     console.error("Contact API error:", err);
-    return NextResponse.json(
+    return jsonNoIndex(
       { ok: false, error: "Failed to send message." },
       { status: 500 }
     );

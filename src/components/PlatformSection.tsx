@@ -191,6 +191,7 @@ export default function PlatformSection() {
                         src={items[active]?.img}
                         alt="Impisi Resources platform"
                         fill
+                        sizes="(max-width: 1024px) 100vw, 40vw"
                         className="object-cover"
                       />
 

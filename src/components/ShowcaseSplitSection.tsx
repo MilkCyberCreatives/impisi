@@ -126,6 +126,7 @@ export default function ShowcaseSplitSection() {
             src="/deliver.jpg"
             alt="Impisi Resources - delivery and execution"
             fill
+            sizes="(max-width: 1024px) 100vw, 58vw"
             className="object-cover"
             priority={false}
           />

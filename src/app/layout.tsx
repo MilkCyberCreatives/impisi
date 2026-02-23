@@ -2,48 +2,91 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import NextTopLoader from "nextjs-toploader";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  localBusinessSchema,
+  organizationSchema,
+  websiteSchema,
+} from "@/lib/structured-data";
+import {
+  OG_IMAGE_PATH,
+  SITE_DESCRIPTION,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Impisi Resources";
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `${siteName} | Mining, Beneficiation & Commodity Solutions`,
-    template: `%s | ${siteName}`,
+    default: `${SITE_NAME} | Mining, Beneficiation & Commodity Solutions`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Impisi Resources is a vertically integrated mining, mineral processing, and commodities group focused on development, operation, and optimisation of mining assets.",
-  alternates: { canonical: siteUrl },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  referrer: "origin-when-cross-origin",
+  category: "business",
+  keywords: [
+    "Impisi Resources",
+    "mining operations",
+    "beneficiation",
+    "commodity trading",
+    "exploration",
+    "project development",
+    "South Africa",
+  ],
+  alternates: { canonical: SITE_URL },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  verification: googleSiteVerification
+    ? {
+        google: googleSiteVerification,
+      }
+    : undefined,
   openGraph: {
     type: "website",
-    url: siteUrl,
-    siteName,
-    title: `${siteName} | Mining, Beneficiation & Commodity Solutions`,
-    description:
-      "Integrated mining operations, exploration, beneficiation, commodity trading, and project development.",
+    locale: SITE_LOCALE,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} | Mining, Beneficiation & Commodity Solutions`,
+    description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/og.jpg",
+        url: OG_IMAGE_PATH,
         width: 1200,
         height: 630,
-        alt: `${siteName} - Mining & Beneficiation`,
+        alt: `${SITE_NAME} - Mining & Beneficiation`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} | Mining, Beneficiation & Commodity Solutions`,
-    description:
-      "Integrated mining operations, exploration, beneficiation, commodity trading, and project development.",
-    images: ["/og.jpg"],
+    title: `${SITE_NAME} | Mining, Beneficiation & Commodity Solutions`,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE_PATH],
+  },
+  manifest: "/manifest.webmanifest",
+  other: {
+    "geo.region": "ZA",
+    "geo.placename": "South Africa",
   },
   icons: { icon: "/icon.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-ZA">
       <body>
         {/* Premium loading indicator (makes navigation feel instant) */}
         <NextTopLoader
@@ -52,6 +95,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           easing="ease"
           speed={220}
         />
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={localBusinessSchema} />
+        <JsonLd data={websiteSchema} />
 
         <SiteHeader />
 

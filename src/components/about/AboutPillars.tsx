@@ -136,7 +136,13 @@ export default function AboutPillars() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute inset-0"
                   >
-                    <Image src={slides[i].img} alt={slides[i].title} fill className="object-cover" />
+                    <Image
+                      src={slides[i].img}
+                      alt={slides[i].title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 58vw"
+                      className="object-cover"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/70" />
                     <div
                       className="absolute inset-0"

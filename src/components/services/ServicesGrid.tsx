@@ -89,6 +89,7 @@ export default function ServicesGrid({ items }: { items: ServiceItem[] }) {
                       src={s.image}
                       alt={s.title}
                       fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition duration-700 group-hover:scale-[1.05]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />

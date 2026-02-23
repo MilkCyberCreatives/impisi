@@ -88,6 +88,7 @@ export default function FooterSection() {
                   src="/icon.svg"
                   alt="Impisi Resources"
                   fill
+                  sizes="(max-width: 640px) 80px, (max-width: 1024px) 96px, 112px"
                   className="object-contain"
                   style={{
                     filter: "brightness(0) saturate(100%) invert(1) brightness(1.7)",

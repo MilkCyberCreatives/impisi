@@ -60,6 +60,7 @@ export default function BreadcrumbHero({
           alt={title}
           fill
           priority
+          sizes="100vw"
           className="object-cover object-[50%_35%]"
         />
 
